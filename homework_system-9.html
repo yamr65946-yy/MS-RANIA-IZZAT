@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS/RANIA IZZAT</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f3f6fb;color:#172033}
+header{background:linear-gradient(135deg,#1d4ed8,#4f46e5);color:#fff;text-align:center;padding:30px 15px}
+header h1{margin:0 0 8px;font-size:30px}
+header p{margin:0;opacity:.9}
+nav{background:#fff;padding:12px;display:flex;justify-content:center;gap:10px;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #0001}
+button{font-family:inherit;border:0;border-radius:12px;padding:12px 17px;font-size:15px;font-weight:700;cursor:pointer}
+.navbtn{background:#eef2ff;color:#3730a3}
+.navbtn.active{background:#3730a3;color:#fff}
+.container{max-width:900px;margin:25px auto;padding:0 15px}
+.card{background:#fff;border-radius:18px;padding:23px;margin-bottom:20px;box-shadow:0 8px 28px #0000000c}
+h2{margin:0 0 18px}
+.field{margin:14px 0}
+label{display:block;font-weight:700;margin-bottom:7px}
+input,select{width:100%;padding:13px;border:1px solid #d5dbe7;border-radius:11px;font-size:15px;background:#fff}
+input:focus,select:focus{outline:2px solid #c7d2fe;border-color:#6366f1}
+input[type=file]{padding:10px}
+.primary{background:#2563eb;color:#fff;width:100%;margin-top:8px}
+.primary:active{transform:scale(.99)}
+.success{display:none;background:#dcfce7;color:#166534;padding:16px;border-radius:12px;margin-top:15px;line-height:1.8}
+.error{color:#b91c1c;margin-top:10px;font-weight:600}
+.hidden{display:none!important}
+.small{font-size:12px;color:#64748b;line-height:1.7}
+.adminbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.adminbar input{flex:1;min-width:200px}
+.item{border:1px solid #e2e8f0;border-radius:14px;padding:15px;margin:10px 0}
+.item strong{color:#1d4ed8}
+.meta{color:#64748b;font-size:13px;line-height:1.8;margin:7px 0}
+.badge{display:inline-block;background:#e0e7ff;color:#3730a3;padding:4px 9px;border-radius:20px;font-size:12px;margin-bottom:5px}
+.danger{background:#fee2e2;color:#b91c1c}
+.download{background:#e0f2fe;color:#075985}
+.logout{background:#eef2f7;color:#334155}
+footer{text-align:center;padding:28px;color:#64748b}
+</style>
+</head>
+<body>
+
+<header>
+<h1>📚 MS/RANIA IZZAT</h1>
+<p>منصة تسليم الواجبات</p>
+</header>
+
+<nav>
+<button id="studentTab" class="navbtn active" type="button">📚 MS/RANIA IZZAT</button>
+<button id="adminTab" class="navbtn" type="button">🔐 لوحة الأدمن</button>
+</nav>
+
+<main class="container">
+
+<section id="studentPage">
+<div class="card">
+<h2>📤 إرسال الواجب</h2>
+
+<div class="field">
+<label for="studentName">اسم الطالب</label>
+<input id="studentName" type="text" autocomplete="name" placeholder="اكتب اسم الطالب">
+</div>
+
+<div class="field">
+<label for="className">الفصل / المجموعة</label>
+<input id="className" type="text" placeholder="مثال: 2/أ">
+</div>
+
+<div class="field">
+<label for="subject">المادة</label>
+<select id="subject">
+<option value="">اختر المادة</option>
+<option>اللغة العربية</option>
+<option>الرياضيات</option>
+<option>العلوم</option>
+<option>الدراسات الاجتماعية</option>
+<option>اللغة الإنجليزية</option>
+<option>أخرى</option>
+</select>
+</div>
+
+<div class="field">
+<label for="homeworkName">اسم الواجب</label>
+<input id="homeworkName" type="text" placeholder="مثال: واجب الدرس الثالث">
+</div>
+
+<div class="field">
+<label for="fileInput">ملف الواجب</label>
+<input id="fileInput" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+</div>
+
+<p class="small">الحد الأقصى للملف في هذه النسخة: 5MB.</p>
+
+<button id="submitBtn" class="primary" type="button">🚀 إرسال الواجب</button>
+
+<div id="formError" class="error"></div>
+<div id="success" class="success"></div>
+</div>
+</section>
+
+<section id="adminPage" class="hidden">
+
+<div id="loginCard" class="card">
+<h2>🔐 دخول الأدمن</h2>
+<p><b>MS/RANIA Izzat</b></p>
+<div class="field">
+<label for="adminPass">كلمة المرور</label>
+<input id="adminPass" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور">
+</div>
+<button id="loginBtn" class="primary" type="button">دخول</button>
+<div id="loginError" class="error"></div>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="card">
+<h2>📋 لوحة التحكم</h2>
+<p>مرحبًا <b>MS/RANIA Izzat</b> 👋</p>
+
+<div class="adminbar">
+<input id="search" type="search" placeholder="🔎 ابحث باسم الطالب أو المادة أو الواجب">
+<button id="clearBtn" class="danger" type="button">🗑️ حذف الكل</button>
+<button id="logoutBtn" class="logout" type="button">تسجيل خروج</button>
+</div>
+
+<div id="count"></div>
+<div id="submissions"></div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer>© 2026 YOUSSEFAMR</footer>
+
+<script>
+(function(){
+'use strict';
+
+const STORAGE_KEY = 'MS_RANIA_IZZAT_HOMEWORKS_V2';
+const ADMIN_PASSWORD = '98765432100';
+
+const $ = id => document.getElementById(id);
+
+let adminLogged = false;
+
+function getData(){
+  try {
+    const value = localStorage.getItem(STORAGE_KEY);
+    return value ? JSON.parse(value) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveData(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function showPage(page){
+  const student = page === 'student';
+  $('studentPage').classList.toggle('hidden', !student);
+  $('adminPage').classList.toggle('hidden', student);
+  $('studentTab').classList.toggle('active', student);
+  $('adminTab').classList.toggle('active', !student);
+}
+
+function submitHomework(){
+  const name = $('studentName').value.trim();
+  const cls = $('className').value.trim();
+  const subject = $('subject').value;
+  const hw = $('homeworkName').value.trim();
+  const file = $('fileInput').files[0];
+
+  $('formError').textContent = '';
+  $('success').style.display = 'none';
+
+  if(!name || !cls || !subject || !hw || !file){
+    $('formError').textContent = '⚠️ من فضلك أكمل جميع البيانات واختر ملف الواجب.';
+    return;
+  }
+
+  if(file.size > 5 * 1024 * 1024){
+    $('formError').textContent = '⚠️ حجم الملف أكبر من 5MB.';
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onerror = function(){
+    $('formError').textContent = '❌ حدث خطأ أثناء قراءة الملف.';
+  };
+
+  reader.onload = function(){
+    try{
+      const data = getData();
+      const id = 'HW-' + new Date().getFullYear() + '-' +
+                 Math.random().toString(36).substring(2,8).toUpperCase();
+
+      data.push({
+        id:id,
+        name:name,
+        cls:cls,
+        subject:subject,
+        hw:hw,
+        fileName:file.name,
+        fileType:file.type || 'application/octet-stream',
+        fileData:reader.result,
+        date:new Date().toLocaleString('ar-EG')
+      });
+
+      saveData(data);
+
+      $('success').innerHTML =
+        '✅ تم تسليم الواجب بنجاح!<br>' +
+        'رقم التسليم: <b>' + escapeHtml(id) + '</b>';
+
+      $('success').style.display = 'block';
+
+      $('studentName').value = '';
+      $('className').value = '';
+      $('subject').value = '';
+      $('homeworkName').value = '';
+      $('fileInput').value = '';
+
+    }catch(e){
+      $('formError').textContent =
+        '❌ تعذر حفظ الواجب. قد تكون مساحة التخزين ممتلئة.';
+    }
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function adminLogin(){
+  $('loginError').textContent = '';
+
+  if($('adminPass').value === ADMIN_PASSWORD){
+    adminLogged = true;
+    $('loginCard').classList.add('hidden');
+    $('dashboard').classList.remove('hidden');
+    $('adminPass').value = '';
+    renderSubmissions();
+  }else{
+    $('loginError').textContent = '❌ كلمة المرور غير صحيحة.';
+  }
+}
+
+function adminLogout(){
+  adminLogged = false;
+  $('dashboard').classList.add('hidden');
+  $('loginCard').classList.remove('hidden');
+  $('adminPass').value = '';
+}
+
+function renderSubmissions(){
+  if(!adminLogged) return;
+
+  const q = $('search').value.trim().toLowerCase();
+
+  const data = getData().filter(x =>
+    (x.name + ' ' + x.subject + ' ' + x.cls + ' ' + x.hw)
+      .toLowerCase()
+      .includes(q)
+  );
+
+  $('count').innerHTML = '<p>📦 عدد التسليمات: <b>' + data.length + '</b></p>';
+
+  if(!data.length){
+    $('submissions').innerHTML = '<p>لا توجد تسليمات حتى الآن.</p>';
+    return;
+  }
+
+  $('submissions').innerHTML = data.slice().reverse().map(x => `
+    <div class="item">
+      <span class="badge">${escapeHtml(x.subject)}</span>
+      <div><strong>${escapeHtml(x.name)}</strong></div>
+      <div class="meta">
+        الفصل: ${escapeHtml(x.cls)}<br>
+        الواجب: ${escapeHtml(x.hw)}<br>
+        📅 ${escapeHtml(x.date)}<br>
+        🆔 ${escapeHtml(x.id)}<br>
+        📎 ${escapeHtml(x.fileName)}
+      </div>
+      <button class="download" type="button" data-download="${escapeAttr(x.id)}">⬇️ تحميل الملف</button>
+      <button class="danger" type="button" data-delete="${escapeAttr(x.id)}">🗑️ حذف</button>
+    </div>
+  `).join('');
+}
+
+function downloadFile(id){
+  const x = getData().find(a => a.id === id);
+  if(!x) return;
+
+  const a = document.createElement('a');
+  a.href = x.fileData;
+  a.download = x.fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function deleteOne(id){
+  if(!confirm('هل تريد حذف هذا التسليم؟')) return;
+  saveData(getData().filter(x => x.id !== id));
+  renderSubmissions();
+}
+
+function clearAll(){
+  if(!getData().length){
+    alert('لا توجد تسليمات لحذفها.');
+    return;
+  }
+
+  if(!confirm('سيتم حذف جميع التسليمات. هل أنت متأكد؟')) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+  renderSubmissions();
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(m){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m];
+  });
+}
+
+function escapeAttr(s){
+  return String(s).replace(/[^a-zA-Z0-9_-]/g,'');
+}
+
+$('studentTab').addEventListener('click', () => showPage('student'));
+$('adminTab').addEventListener('click', () => showPage('admin'));
+$('submitBtn').addEventListener('click', submitHomework);
+$('loginBtn').addEventListener('click', adminLogin);
+$('logoutBtn').addEventListener('click', adminLogout);
+$('clearBtn').addEventListener('click', clearAll);
+$('search').addEventListener('input', renderSubmissions);
+
+$('adminPass').addEventListener('keydown', e => {
+  if(e.key === 'Enter') adminLogin();
+});
+
+$('submissions').addEventListener('click', e => {
+  const downloadId = e.target.getAttribute('data-download');
+  const deleteId = e.target.getAttribute('data-delete');
+
+  if(downloadId) downloadFile(downloadId);
+  if(deleteId) deleteOne(deleteId);
+});
+
+})();
+</script>
+</body>
+</html>
